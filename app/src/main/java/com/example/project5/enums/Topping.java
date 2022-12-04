@@ -1,5 +1,7 @@
 package com.example.project5.enums;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 /**
  * Holds enumeration data for pizza styles.
  * @author Aaron Newland, Dylan Pina

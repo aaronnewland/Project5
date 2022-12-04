@@ -11,13 +11,23 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.project5.Pizza;
 import com.example.project5.R;
 import com.example.project5.RecyclerAdadpter;
+import com.example.project5.enums.Crust;
+import com.example.project5.enums.Flavor;
+import com.example.project5.enums.Size;
+import com.example.project5.interfaces.PizzaFactory;
+import com.example.project5.pizzastyles.ChicagoPizza;
 
 public class ChicagoActivity extends AppCompatActivity {
+    private PizzaFactory pizzaFactory;
+    private Pizza pizza;
+    private String availableToppings[];
+    private Flavor selectedFlavor;
+    private Size selectedSize;
 
     RecyclerView toppingRecycler;
-    String availableToppings[];
     int images[] = {R.drawable.topping_sausage, R.drawable.topping_bbq_chicken,
             R.drawable.topping_beef,R.drawable.topping_ham, R.drawable.topping_pepperoni,
             R.drawable.topping_green_pepper, R.drawable.topping_onion, R.drawable.topping_mushroom,
@@ -26,34 +36,35 @@ public class ChicagoActivity extends AppCompatActivity {
     ImageView pizzaImage;
     RadioButton small, medium, large;
     RadioGroup sizeGroup;
-    Spinner pizzaFlavor;
+    Spinner pizzaStyle;
     TextView crustType;
     TextView pizzaPrice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_chicago);
-
         toppingRecycler = findViewById(R.id.chicagoToppingsRecycler);
-
         availableToppings = getResources().getStringArray(R.array.toppings);
-
         RecyclerAdadpter recyclerAdadpter = new RecyclerAdadpter(this, availableToppings, images);
         toppingRecycler.setAdapter(recyclerAdadpter);
         toppingRecycler.setLayoutManager(new LinearLayoutManager(this));
-
         small = findViewById(R.id.small);
         medium = findViewById(R.id.medium);
         large = findViewById(R.id.large);
-
         sizeGroup = findViewById(R.id.pizzaSize);
-        pizzaFlavor = findViewById(R.id.pizzaFlavorChicago);
-
+        pizzaStyle = findViewById(R.id.pizzaStyleChicago);
         crustType = findViewById(R.id.crustType);
         pizzaPrice = findViewById(R.id.pizzaPrice);
-
         pizzaImage = findViewById(R.id.chicagoImage);
+
+        pizzaFactory = new ChicagoPizza();
+        pizza = pizzaFactory.createBuildYourOwn();
+        selectedFlavor = Flavor.BUILD_YOUR_OWN;
+        selectedSize = Size.SMALL;
+        setBuildYourOwn();
+//        setPizzaStyleImage();
     }
 
     @Override
@@ -61,9 +72,78 @@ public class ChicagoActivity extends AppCompatActivity {
         super.onResume();
 
         sizeGroup.setOnCheckedChangeListener((radioGroup, checkedId) -> {
-            // how to access sizes
-            //TODO: add price change association
-           // if (checkedId == small.getId()) System.out.println("here");
+            switch(checkedId) {
+                case R.id.small:
+                    handleSizeChange(Size.SMALL);
+                    break;
+                case R.id.medium:
+                    handleSizeChange(Size.MEDIUM);
+                    break;
+                case R.id.large:
+                    handleSizeChange(Size.LARGE);
+                    break;
+            }
         });
+    }
+
+    private void handleSizeChange(Size size) {
+        selectedSize = size;
+        pizza.setSize(selectedSize);
+        getCalculatedPrice();
+    }
+
+    /**
+     * Sets fields for Deluxe pizza as created by the pizzeria.
+     */
+    private void setDeluxe() {
+        pizza = pizzaFactory.createDeluxe();
+        pizza.setCrust(Crust.DEEP_DISH);
+        pizza.setSize(selectedSize);
+        crustType.setText(Crust.DEEP_DISH.toString());
+//        disableToppings();
+        getCalculatedPrice();
+    }
+
+    /**
+     * Sets fields for Meatzza pizza as created by the pizzeria.
+     */
+    private void setMeatzza() {
+        pizza = pizzaFactory.createMeatzza();
+        pizza.setCrust(Crust.STUFFED);
+        pizza.setSize(selectedSize);
+        crustType.setText(Crust.STUFFED.toString());
+//        disableToppings();
+        getCalculatedPrice();
+    }
+
+    /**
+     * Sets fields for BBQ Chicken pizza as created by the pizzeria.
+     */
+    private void setBBQChicken() {
+        pizza = pizzaFactory.createBBQChicken();
+        pizza.setCrust(Crust.PAN);
+        pizza.setSize(selectedSize);
+        crustType.setText(Crust.PAN.toString());
+//        disableToppings();
+        getCalculatedPrice();
+    }
+
+    /**
+     * Sets fields for Build Your Own pizza as created by the pizzeria.
+     */
+    private void setBuildYourOwn() {
+        pizza = pizzaFactory.createBuildYourOwn();
+        pizza.setCrust(Crust.PAN);
+        pizza.setSize(selectedSize);
+        crustType.setText(Crust.PAN.toString());
+//        enableToppings();
+        getCalculatedPrice();
+    }
+
+    /**
+     * Sets text field for price of current pizza.
+     */
+    private void getCalculatedPrice() {
+        pizzaPrice.setText(String.format("%,.2f", pizza.price()));
     }
 }
