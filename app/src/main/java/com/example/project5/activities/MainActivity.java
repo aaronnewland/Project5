@@ -12,6 +12,8 @@ public class MainActivity extends AppCompatActivity {
 
     private ImageButton chicagoButton;
     private ImageButton nyButton;
+    private ImageButton currentOrderButton;
+    private ImageButton storeOrdersButton;
 
     //Instantiate class-scope variables in onCreate
     @Override
@@ -20,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         chicagoButton = findViewById(R.id.chicagoButton);
         nyButton = findViewById(R.id.nyButton);
+        currentOrderButton = findViewById(R.id.currentOrderButton);
+        storeOrdersButton = findViewById(R.id.storeOrdersButton);
     }
 
     //State of user interaction
@@ -28,8 +32,12 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         Intent chicagoIntent = new Intent(this, ChicagoActivity.class);
         Intent nyIntent = new Intent(this, NY_Activity.class);
+        Intent currentOrderIntent = new Intent(this, CurrentOrderActivity.class);
+        Intent storeOrdersIntent = new Intent(this, StoreOrdersActivity.class);
         chicagoButton.setOnClickListener(view -> startActivity(chicagoIntent));
         nyButton.setOnClickListener(view -> startActivity(nyIntent));
+        currentOrderButton.setOnClickListener(view -> startActivity(currentOrderIntent));
+        storeOrdersButton.setOnClickListener(view -> startActivity(storeOrdersIntent));
     }
 
 

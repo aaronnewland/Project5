@@ -74,7 +74,7 @@ public class ChicagoActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         sizeGroup.setOnCheckedChangeListener((radioGroup, checkedId) -> handleSizeChange(checkedId));
-        pizzaFlavor.setOnItemSelectedListener((parent, view, position, id) -> handleFlavorChange(id));
+        //pizzaFlavor.setOnItemSelectedListener((parent, view, position, id) -> handleFlavorChange(id));
     }
 
     private void handleSizeChange(int checkedId) {

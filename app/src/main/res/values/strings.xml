@@ -43,4 +43,27 @@
         <item>Medium</item>
         <item>Large</item>
     </string-array>
+
+    <string name="currentOrder">Current Order</string>
+
+    <string name="orderNumber">Order Number</string>
+
+    <string name="subtotal">subtotal $</string>
+
+    <string name="salesTax">sales tax $</string>
+
+    <string name="orderTotal">order total $</string>
+
+    <string name="removePizza">Remove Pizza</string>
+
+    <string name="clearOrder">Clear Order</string>
+
+    <string name="placeOrder">Place Order</string>
+
+    <string name="storeOrders" >Store Orders</string>
+
+    <string name="storeOrderTotal" >Order Total (tax included) $</string>
+
+    <string name="cancelOrder" >Cancel Order</string>
+
 </resources>
