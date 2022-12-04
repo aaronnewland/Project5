@@ -43,4 +43,49 @@
         <item>Medium</item>
         <item>Large</item>
     </string-array>
+
+    <string name="RU_Pizzeria">RU Pizzeria</string>
+
+    <string name="temp">temp</string>
+
+    <string name="small">small</string>
+
+    <string name="medium">medium</string>
+
+    <string name="large">large</string>
+
+    <string name="crust">Crust</string>
+
+    <string name="pizzaPrice">Pizza Price $</string>
+
+    <string name="addToOrder">Add To Order</string>
+
+    <string name="topping">Topping</string>
+
+    <string name="chicagoStyePizza" >Chicago Style Pizza</string>
+
+    <string name="NY_StylePizza" >New York Style Pizza</string>
+
+    <string name="currentOrder">Current Order</string>
+
+    <string name="orderNumber">Order Number</string>
+
+    <string name="subtotal">subtotal $</string>
+
+    <string name="salesTax">sales tax $</string>
+
+    <string name="orderTotal">order total $</string>
+
+    <string name="removePizza">Remove Pizza</string>
+
+    <string name="clearOrder">Clear Order</string>
+
+    <string name="placeOrder">Place Order</string>
+
+    <string name="storeOrders" >Store Orders</string>
+
+    <string name="storeOrderTotal" >Order Total (tax included) $</string>
+
+    <string name="cancelOrder" >Cancel Order</string>
+
 </resources>

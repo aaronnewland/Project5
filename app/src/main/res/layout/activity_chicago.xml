@@ -10,7 +10,7 @@
         android:id="@+id/chicagoHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Chicago Style Pizza"
+        android:text="@string/chicagoStyePizza"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -49,88 +49,86 @@
         app:layout_constraintEnd_toStartOf="@+id/chicagoToppingsRecycler"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/crustType">
+        app:layout_constraintTop_toBottomOf="@+id/chicagoCrustType">
 
         <RadioButton
             android:id="@+id/small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="small" />
+            android:text="@string/small" />
 
         <RadioButton
             android:id="@+id/medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="medium" />
+            android:text="@string/medium" />
 
         <RadioButton
             android:id="@+id/large"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="large" />
+            android:text="@string/large" />
 
     </RadioGroup>
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/chicagoCrustHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="Crust: "
-        android:textStyle="bold"
+        android:text="@string/crust"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pizzaFlavorChicago" />
 
     <TextView
-        android:id="@+id/crustType"
+        android:id="@+id/chicagoCrustType"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:text="TextView"
-        android:textStyle="italic"
-        app:layout_constraintStart_toEndOf="@+id/textView"
+        android:text="@string/temp"
+        app:layout_constraintStart_toEndOf="@+id/chicagoCrustHeader"
         app:layout_constraintTop_toBottomOf="@+id/pizzaFlavorChicago" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/chicagoToppingsRecycler"
-        android:layout_width="213dp"
-        android:layout_height="324dp"
+        android:layout_width="238dp"
+        android:layout_height="354dp"
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/pizzaPrice"
+        app:layout_constraintStart_toEndOf="@+id/chicagoPizzaPrice"
         app:layout_constraintTop_toBottomOf="@+id/pizzaFlavorChicago" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/chicagoPizzaPriceHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Pizza Price $"
+        android:text="@string/pizzaPrice"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pizzaSize"
         app:layout_constraintVertical_bias="0.333" />
 
     <TextView
-        android:id="@+id/pizzaPrice"
+        android:id="@+id/chicagoPizzaPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="1dp"
-        android:text="TextView"
+        android:layout_marginStart="8dp"
+        android:text="@string/temp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView3"
+        app:layout_constraintStart_toEndOf="@+id/chicagoPizzaPriceHeader"
         app:layout_constraintTop_toBottomOf="@+id/pizzaSize"
         app:layout_constraintVertical_bias="0.333" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/chicagoAddToOrderButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add to Order"
+        android:text="@string/addToOrder"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chicagoToppingsRecycler"
-        app:layout_constraintVertical_bias="0.75" />
+        app:layout_constraintTop_toBottomOf="@+id/chicagoToppingsRecycler" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
