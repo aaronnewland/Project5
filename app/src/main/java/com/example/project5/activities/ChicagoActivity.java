@@ -16,13 +16,12 @@ import android.widget.TextView;
 
 import com.example.project5.Pizza;
 import com.example.project5.R;
-import com.example.project5.RecyclerAdadpter;
+import com.example.project5.RecyclerAdapter;
 import com.example.project5.enums.Crust;
 import com.example.project5.enums.Flavor;
 import com.example.project5.enums.Size;
 import com.example.project5.interfaces.PizzaFactory;
 import com.example.project5.pizzastyles.ChicagoPizza;
-import com.google.android.material.navigation.NavigationBarView;
 
 public class ChicagoActivity extends AppCompatActivity {
     private PizzaFactory pizzaFactory;
@@ -52,7 +51,7 @@ public class ChicagoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chicago);
         toppingRecycler = findViewById(R.id.chicagoToppingsRecycler);
         availableToppings = getResources().getStringArray(R.array.toppings);
-        RecyclerAdadpter recyclerAdadpter = new RecyclerAdadpter(this, availableToppings, images);
+        RecyclerAdapter recyclerAdadpter = new RecyclerAdapter(this, availableToppings, images);
         toppingRecycler.setAdapter(recyclerAdadpter);
         toppingRecycler.setLayoutManager(new LinearLayoutManager(this));
         small = findViewById(R.id.small);
@@ -98,6 +97,8 @@ public class ChicagoActivity extends AppCompatActivity {
 
                     public void onNothingSelected(AdapterView<?> parent) {}
                 });
+        
+
     }
 
     private void handleSizeChange(int checkedId) {
@@ -125,7 +126,7 @@ public class ChicagoActivity extends AppCompatActivity {
         pizza.setCrust(Crust.DEEP_DISH);
         pizza.setSize(selectedSize);
         crustType.setText(Crust.DEEP_DISH.toString());
-//        disableToppings();
+        hideToppings();
         getCalculatedPrice();
     }
 
@@ -138,7 +139,7 @@ public class ChicagoActivity extends AppCompatActivity {
         pizza.setCrust(Crust.STUFFED);
         pizza.setSize(selectedSize);
         crustType.setText(Crust.STUFFED.toString());
-//        disableToppings();
+        hideToppings();
         getCalculatedPrice();
     }
 
@@ -151,7 +152,7 @@ public class ChicagoActivity extends AppCompatActivity {
         pizza.setCrust(Crust.PAN);
         pizza.setSize(selectedSize);
         crustType.setText(Crust.PAN.toString());
-//        disableToppings();
+        hideToppings();
         getCalculatedPrice();
     }
 
@@ -164,8 +165,16 @@ public class ChicagoActivity extends AppCompatActivity {
         pizza.setCrust(Crust.PAN);
         pizza.setSize(selectedSize);
         crustType.setText(Crust.PAN.toString());
-//        enableToppings();
+        showToppings();
         getCalculatedPrice();
+    }
+
+    private void hideToppings() {
+        toppingRecycler.setVisibility(View.INVISIBLE);
+    }
+
+    private void showToppings() {
+        toppingRecycler.setVisibility(View.VISIBLE);
     }
 
     /**

@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 
 import com.example.project5.R;
-import com.example.project5.RecyclerAdadpter;
+import com.example.project5.RecyclerAdapter;
 
 public class NY_Activity extends AppCompatActivity {
 
@@ -28,7 +28,7 @@ public class NY_Activity extends AppCompatActivity {
 
         availableToppings = getResources().getStringArray(R.array.toppings);
 
-        RecyclerAdadpter recyclerAdadpter = new RecyclerAdadpter(this, availableToppings, images);
+        RecyclerAdapter recyclerAdadpter = new RecyclerAdapter(this, availableToppings, images);
         toppingRecycler.setAdapter(recyclerAdadpter);
         toppingRecycler.setLayoutManager(new LinearLayoutManager(this));
     }

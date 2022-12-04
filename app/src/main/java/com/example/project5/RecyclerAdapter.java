@@ -1,7 +1,6 @@
 package com.example.project5;
 
 import android.content.Context;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,13 +10,12 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class RecyclerAdadpter extends RecyclerView.Adapter<RecyclerAdadpter.ViewHolder> {
-
+public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
     String availableToppings[];
     int images[];
     Context context;
 
-    public RecyclerAdadpter(Context ct, String availableToppings[], int images[]) {
+    public RecyclerAdapter(Context ct, String availableToppings[], int images[]) {
         context = ct;
         this.availableToppings = availableToppings;
         this.images = images;
@@ -43,7 +41,6 @@ public class RecyclerAdadpter extends RecyclerView.Adapter<RecyclerAdadpter.View
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-
         CheckBox toppingsCheckBox;
         ImageView image;
 
