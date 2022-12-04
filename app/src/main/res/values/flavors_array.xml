@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string-array name="flavors">
-        <item>Build your own</item>
-        <item>Deluxe</item>
-        <item>BBQ Chicken</item>
-        <item>Meatzza</item>
-    </string-array>
-</resources>
