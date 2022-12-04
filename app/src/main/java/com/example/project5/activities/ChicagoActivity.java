@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -36,10 +37,11 @@ public class ChicagoActivity extends AppCompatActivity {
     ImageView pizzaImage;
     RadioButton small, medium, large;
     RadioGroup sizeGroup;
-    Spinner pizzaStyle;
+    Spinner pizzaFlavor;
     TextView crustType;
     TextView pizzaPrice;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,8 +55,9 @@ public class ChicagoActivity extends AppCompatActivity {
         small = findViewById(R.id.small);
         medium = findViewById(R.id.medium);
         large = findViewById(R.id.large);
+        small.toggle();
         sizeGroup = findViewById(R.id.pizzaSize);
-        pizzaStyle = findViewById(R.id.pizzaStyleChicago);
+        pizzaFlavor = findViewById(R.id.pizzaFlavorChicago);
         crustType = findViewById(R.id.crustType);
         pizzaPrice = findViewById(R.id.pizzaPrice);
         pizzaImage = findViewById(R.id.chicagoImage);
@@ -70,26 +73,28 @@ public class ChicagoActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
-        sizeGroup.setOnCheckedChangeListener((radioGroup, checkedId) -> {
-            switch(checkedId) {
-                case R.id.small:
-                    handleSizeChange(Size.SMALL);
-                    break;
-                case R.id.medium:
-                    handleSizeChange(Size.MEDIUM);
-                    break;
-                case R.id.large:
-                    handleSizeChange(Size.LARGE);
-                    break;
-            }
-        });
+        sizeGroup.setOnCheckedChangeListener((radioGroup, checkedId) -> handleSizeChange(checkedId));
+        pizzaFlavor.setOnItemSelectedListener((parent, view, position, id) -> handleFlavorChange(id));
     }
 
-    private void handleSizeChange(Size size) {
-        selectedSize = size;
+    private void handleSizeChange(int checkedId) {
+        switch(checkedId) {
+            case R.id.small:
+                selectedSize = Size.SMALL;
+                break;
+            case R.id.medium:
+                selectedSize = Size.MEDIUM;
+                break;
+            case R.id.large:
+                selectedSize = Size.LARGE;
+                break;
+        }
         pizza.setSize(selectedSize);
         getCalculatedPrice();
+    }
+
+    private void handleFlavorChange(long id) {
+        System.out.println(id);
     }
 
     /**
