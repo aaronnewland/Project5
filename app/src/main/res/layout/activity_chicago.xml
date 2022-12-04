@@ -94,7 +94,7 @@
         app:layout_constraintTop_toBottomOf="@+id/pizzaSize" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/chicagoToppingsRecycler"
         android:layout_width="149dp"
         android:layout_height="211dp"
         android:layout_marginTop="32dp"
@@ -129,7 +129,7 @@
         android:layout_marginTop="64dp"
         android:text="Add to Order"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/recyclerView"
+        app:layout_constraintStart_toEndOf="@+id/chicagoToppingsRecycler"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,3 +1,26 @@
 <resources>
     <string name="app_name">Project5</string>
+
+    <string-array name="flavors">
+        <item>Build your own</item>
+        <item>Deluxe</item>
+        <item>BBQ Chicken</item>
+        <item>Meatzza</item>
+    </string-array>
+
+    <string-array name="toppings">
+        <item>Sausage</item>
+        <item>BBQ Chicken</item>
+        <item>Beef</item>
+        <item>Ham</item>
+        <item>Pepperoni</item>
+        <item>Green Pepper</item>
+        <item>Onion</item>
+        <item>Mushroom</item>
+        <item>Pineapple</item>
+        <item>Black Olives</item>
+        <item>Provolone</item>
+        <item>Spinach</item>
+        <item>Cheddar</item>
+    </string-array>
 </resources>
