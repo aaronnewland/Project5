@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
-        android:text="TextView"
+        android:text="@string/temp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/orderNumberHeader"
@@ -65,7 +65,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="TextView"
+        android:text="@string/temp"
         app:layout_constraintStart_toEndOf="@+id/subtotalHeader"
         app:layout_constraintTop_toBottomOf="@+id/currentOrderList" />
 
@@ -84,7 +84,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="TextView"
+        android:text="@string/temp"
         app:layout_constraintStart_toEndOf="@+id/salesTaxHeader"
         app:layout_constraintTop_toBottomOf="@+id/currentOrderList" />
 
@@ -101,7 +101,7 @@
         android:id="@+id/orderTotal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:text="@string/temp"
         app:layout_constraintStart_toEndOf="@+id/orderTotalHeader"
         app:layout_constraintTop_toBottomOf="@+id/salesTaxHeader" />
 
