@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.ChicagoActivity">
+    tools:context=".activities.NY_Activity">
 
     <TextView
-        android:id="@+id/chicagoHeader"
+        android:id="@+id/NY_Header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Chicago Style Pizza"
+        android:text="New York Style Pizza"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -20,24 +20,23 @@
         app:layout_constraintVertical_bias="0.022" />
 
     <ImageView
-        android:id="@+id/chicagoImage"
+        android:id="@+id/NY_Image"
         android:layout_width="175dp"
         android:layout_height="175dp"
         android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chicagoHeader"
-        app:srcCompat="@drawable/chicago_style_pizza" />
+        app:layout_constraintTop_toBottomOf="@+id/NY_Header"
+        app:srcCompat="@drawable/nyc_style_pizza" />
 
     <Spinner
-        android:id="@+id/pizzaFlavorChicago"
+        android:id="@+id/pizzaFlavorNY"
         android:layout_width="409dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:entries="@array/flavors"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chicagoImage" />
+        app:layout_constraintTop_toBottomOf="@+id/NY_Image" />
 
     <RadioGroup
         android:id="@+id/pizzaSize"
@@ -50,7 +49,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pizzaFlavorChicago">
+        app:layout_constraintTop_toBottomOf="@+id/pizzaFlavorNY">
 
         <RadioButton
             android:id="@+id/small"

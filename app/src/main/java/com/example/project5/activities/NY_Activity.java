@@ -1,14 +1,16 @@
-package com.example.project5;
+package com.example.project5.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class ChicagoActivity extends AppCompatActivity {
+import com.example.project5.R;
+
+public class NY_Activity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chicago);
+        setContentView(R.layout.activity_ny);
     }
 }
