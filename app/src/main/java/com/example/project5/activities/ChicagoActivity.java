@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -20,6 +22,7 @@ import com.example.project5.enums.Flavor;
 import com.example.project5.enums.Size;
 import com.example.project5.interfaces.PizzaFactory;
 import com.example.project5.pizzastyles.ChicagoPizza;
+import com.google.android.material.navigation.NavigationBarView;
 
 public class ChicagoActivity extends AppCompatActivity {
     private PizzaFactory pizzaFactory;
@@ -74,7 +77,27 @@ public class ChicagoActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         sizeGroup.setOnCheckedChangeListener((radioGroup, checkedId) -> handleSizeChange(checkedId));
-        //pizzaFlavor.setOnItemSelectedListener((parent, view, position, id) -> handleFlavorChange(id));
+        pizzaFlavor.setOnItemSelectedListener(
+                new AdapterView.OnItemSelectedListener() {
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        switch((int) id) {
+                            case 0:
+                                setBuildYourOwn();
+                                break;
+                            case 1:
+                                setDeluxe();
+                                break;
+                            case 2:
+                                setBBQChicken();
+                                break;
+                            case 3:
+                                setMeatzza();
+                                break;
+                        }
+                    }
+
+                    public void onNothingSelected(AdapterView<?> parent) {}
+                });
     }
 
     private void handleSizeChange(int checkedId) {
@@ -93,15 +116,12 @@ public class ChicagoActivity extends AppCompatActivity {
         getCalculatedPrice();
     }
 
-    private void handleFlavorChange(long id) {
-        System.out.println(id);
-    }
-
     /**
      * Sets fields for Deluxe pizza as created by the pizzeria.
      */
     private void setDeluxe() {
         pizza = pizzaFactory.createDeluxe();
+        selectedFlavor = Flavor.DELUXE;
         pizza.setCrust(Crust.DEEP_DISH);
         pizza.setSize(selectedSize);
         crustType.setText(Crust.DEEP_DISH.toString());
@@ -114,6 +134,7 @@ public class ChicagoActivity extends AppCompatActivity {
      */
     private void setMeatzza() {
         pizza = pizzaFactory.createMeatzza();
+        selectedFlavor = Flavor.MEATZZA;
         pizza.setCrust(Crust.STUFFED);
         pizza.setSize(selectedSize);
         crustType.setText(Crust.STUFFED.toString());
@@ -126,6 +147,7 @@ public class ChicagoActivity extends AppCompatActivity {
      */
     private void setBBQChicken() {
         pizza = pizzaFactory.createBBQChicken();
+        selectedFlavor = Flavor.BBQ_CHICKEN;
         pizza.setCrust(Crust.PAN);
         pizza.setSize(selectedSize);
         crustType.setText(Crust.PAN.toString());
@@ -138,6 +160,7 @@ public class ChicagoActivity extends AppCompatActivity {
      */
     private void setBuildYourOwn() {
         pizza = pizzaFactory.createBuildYourOwn();
+        selectedFlavor = Flavor.BUILD_YOUR_OWN;
         pizza.setCrust(Crust.PAN);
         pizza.setSize(selectedSize);
         crustType.setText(Crust.PAN.toString());
