@@ -60,8 +60,8 @@ public class ChicagoActivity extends AppCompatActivity {
         small.toggle();
         sizeGroup = findViewById(R.id.pizzaSize);
         pizzaFlavor = findViewById(R.id.pizzaFlavorChicago);
-        crustType = findViewById(R.id.crustType);
-        pizzaPrice = findViewById(R.id.pizzaPrice);
+        crustType = findViewById(R.id.chicagoCrustType);
+        pizzaPrice = findViewById(R.id.chicagoPizzaPrice);
         pizzaImage = findViewById(R.id.chicagoImage);
 
         pizzaFactory = new ChicagoPizza();
@@ -69,7 +69,7 @@ public class ChicagoActivity extends AppCompatActivity {
         selectedFlavor = Flavor.BUILD_YOUR_OWN;
         selectedSize = Size.SMALL;
         setBuildYourOwn();
-//        setPizzaStyleImage();
+        setPizzaStyleImage();
     }
 
     @Override
@@ -93,11 +93,12 @@ public class ChicagoActivity extends AppCompatActivity {
                                 setMeatzza();
                                 break;
                         }
+                        setPizzaStyleImage();
                     }
 
                     public void onNothingSelected(AdapterView<?> parent) {}
                 });
-        
+
 
     }
 
@@ -175,6 +176,27 @@ public class ChicagoActivity extends AppCompatActivity {
 
     private void showToppings() {
         toppingRecycler.setVisibility(View.VISIBLE);
+    }
+
+    /**
+     * Gets the pizza style image
+     * @return Image of pizza style
+     */
+    private void setPizzaStyleImage() {
+        switch (selectedFlavor) {
+            case BUILD_YOUR_OWN:
+                pizzaImage.setImageResource(R.drawable.chicago_style_pizza);
+                return;
+            case BBQ_CHICKEN:
+                pizzaImage.setImageResource(R.drawable.chicago_style_pizza_bbq);
+                return;
+            case MEATZZA:
+                pizzaImage.setImageResource(R.drawable.chicago_style_pizza_meatzza);
+                return;
+            case DELUXE:
+                pizzaImage.setImageResource(R.drawable.chicago_style_pizza_deluxe);
+                return;
+        }
     }
 
     /**
