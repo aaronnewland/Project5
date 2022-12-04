@@ -24,7 +24,7 @@ public class NY_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ny);
 
-        toppingRecycler = findViewById(R.id.chicagoToppingsRecycler);
+        toppingRecycler = findViewById(R.id.nyToppingsRecycler);
 
         availableToppings = getResources().getStringArray(R.array.toppings);
 

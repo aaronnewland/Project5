@@ -23,4 +23,24 @@
         <item>Spinach</item>
         <item>Cheddar</item>
     </string-array>
+
+    <string-array name="crust">
+        <item>Deep Dish</item>
+        <item>Pan</item>
+        <item>Stuffed</item>
+        <item>Brooklyn</item>
+        <item>Thin</item>
+        <item>Hand Tossed</item>
+    </string-array>
+
+    <string-array name="pizzaStyle">
+        <item>New York Style</item>
+        <item>Chicago Style</item>
+    </string-array>
+
+    <string-array name="size">
+        <item>Small</item>
+        <item>Medium</item>
+        <item>Large</item>
+    </string-array>
 </resources>
