@@ -31,6 +31,7 @@ public class ChicagoActivity extends AppCompatActivity {
     private Size selectedSize;
 
     RecyclerView toppingRecycler;
+    RecyclerAdapter recyclerAdapter;
     int images[] = {R.drawable.topping_sausage, R.drawable.topping_bbq_chicken,
             R.drawable.topping_beef,R.drawable.topping_ham, R.drawable.topping_pepperoni,
             R.drawable.topping_green_pepper, R.drawable.topping_onion, R.drawable.topping_mushroom,
@@ -51,8 +52,12 @@ public class ChicagoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chicago);
         toppingRecycler = findViewById(R.id.chicagoToppingsRecycler);
         availableToppings = getResources().getStringArray(R.array.toppings);
-        RecyclerAdapter recyclerAdadpter = new RecyclerAdapter(this, availableToppings, images);
-        toppingRecycler.setAdapter(recyclerAdadpter);
+        recyclerAdapter = new RecyclerAdapter(this, availableToppings, images, () -> {
+                pizza.setToppings(recyclerAdapter.getSelectedToppingsList());
+                System.out.println(pizza.getToppings());
+        }
+        );
+        toppingRecycler.setAdapter(recyclerAdapter);
         toppingRecycler.setLayoutManager(new LinearLayoutManager(this));
         small = findViewById(R.id.small);
         medium = findViewById(R.id.medium);
@@ -98,8 +103,6 @@ public class ChicagoActivity extends AppCompatActivity {
 
                     public void onNothingSelected(AdapterView<?> parent) {}
                 });
-
-
     }
 
     private void handleSizeChange(int checkedId) {
@@ -170,10 +173,16 @@ public class ChicagoActivity extends AppCompatActivity {
         getCalculatedPrice();
     }
 
+    /**
+     * Hides toppings recycler list
+     */
     private void hideToppings() {
         toppingRecycler.setVisibility(View.INVISIBLE);
     }
 
+    /**
+     * Displays toppings recycler list
+     */
     private void showToppings() {
         toppingRecycler.setVisibility(View.VISIBLE);
     }

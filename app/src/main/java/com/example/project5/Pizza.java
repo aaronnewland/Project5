@@ -6,13 +6,14 @@ import com.example.project5.enums.Topping;
 import com.example.project5.interfaces.Customizable;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Holds abstract data and methods for a Pizza.
  * @author Aaron Newland, Dylan Pina
  */
 public abstract class Pizza implements Customizable {
-    private ArrayList<Topping> toppings;
+    private List<Topping> toppings;
     private Crust crust;
     private Size size;
     public abstract double price();
@@ -28,7 +29,7 @@ public abstract class Pizza implements Customizable {
      * Retrieves pizza toppings.
      * @return list of toppings.
      */
-    public ArrayList<Topping> getToppings() {
+    public List<Topping> getToppings() {
         return toppings;
     }
 
@@ -36,7 +37,7 @@ public abstract class Pizza implements Customizable {
      * Sets list of pizza toppings.
      * @param toppings list of toppings to be set.
      */
-    public void setToppings(ArrayList<Topping> toppings) {
+    public void setToppings(List<Topping> toppings) {
         this.toppings = toppings;
     }
 
