@@ -57,7 +57,7 @@ public class ChicagoActivity extends AppCompatActivity {
         recyclerAdapter = new RecyclerAdapter(this, availableToppings, images, () -> {
                 pizza.setToppings(recyclerAdapter.getSelectedToppingsList());
                 getCalculatedPrice();
-                //System.out.println(pizza.getToppings());
+                System.out.println(pizza.getToppings());
         }
         );
         toppingRecycler.setAdapter(recyclerAdapter);
@@ -138,6 +138,7 @@ public class ChicagoActivity extends AppCompatActivity {
         pizza.setSize(selectedSize);
         crustType.setText(Crust.DEEP_DISH.toString());
         hideToppings();
+        recyclerAdapter.unCheckAll();
         getCalculatedPrice();
     }
 
@@ -151,6 +152,7 @@ public class ChicagoActivity extends AppCompatActivity {
         pizza.setSize(selectedSize);
         crustType.setText(Crust.STUFFED.toString());
         hideToppings();
+        recyclerAdapter.unCheckAll();
         getCalculatedPrice();
     }
 
@@ -164,6 +166,7 @@ public class ChicagoActivity extends AppCompatActivity {
         pizza.setSize(selectedSize);
         crustType.setText(Crust.PAN.toString());
         hideToppings();
+        recyclerAdapter.unCheckAll();
         getCalculatedPrice();
     }
 
@@ -229,6 +232,7 @@ public class ChicagoActivity extends AppCompatActivity {
         setBuildYourOwn();
         pizzaFlavor.setSelection(0);
         setPizzaStyleImage();
+        recyclerAdapter.unCheckAll();
     }
 
     /**

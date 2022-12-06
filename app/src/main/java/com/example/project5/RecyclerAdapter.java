@@ -23,6 +23,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     private ToppingCheckboxClickListener toppingCheckboxClickListener;
     private int[] images;
     private Context context;
+    public boolean hasCheckedBox;
 
     public RecyclerAdapter(Context context, String availableToppings[], int images[]) {
         this.context = context;
@@ -30,6 +31,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         this.selectedToppingsList = new ArrayList<>();
         this.selectedToppings = new SparseBooleanArray();
         this.images = images;
+        hasCheckedBox = false;
     }
 
     public RecyclerAdapter(Context context, String availableToppings[], int images[],
@@ -51,6 +53,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         holder.bind(position);
         holder.checkBox.setText(availableToppings[position]);
         holder.image.setImageResource(images[position]);
+
+        if (!hasCheckedBox) holder.checkBox.setChecked(false);
+        for (int i = 0; i < selectedToppings.size(); i++) {
+            selectedToppings.put(i, false);
+        }
+
     }
 
     @Override
@@ -87,15 +95,15 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         @Override
         public void onClick(View v) {
             int adapterPosition = getAdapterPosition();
-            String toppingnName = availableToppings[adapterPosition];
+            String toppingName = availableToppings[adapterPosition];
 
             if (!selectedToppings.get(adapterPosition, false)) {
                 checkBox.setChecked(true);
-                selectedToppingsList.add(getTopping(toppingnName));
+                selectedToppingsList.add(getTopping(toppingName));
                 selectedToppings.put(adapterPosition, true);
             } else  {
                 checkBox.setChecked(false);
-                selectedToppingsList.remove(getTopping(toppingnName));
+                selectedToppingsList.remove(getTopping(toppingName));
                 selectedToppings.put(adapterPosition, false);
             }
             toppingCheckboxClickListener.onToppingCheckboxClick();
@@ -119,6 +127,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                 default: return null;
             }
         }
+    }
+
+    public void unCheckAll() {
+        hasCheckedBox = false;
+        selectedToppingsList.clear();
+        notifyDataSetChanged();
     }
 
     public interface ToppingCheckboxClickListener {
