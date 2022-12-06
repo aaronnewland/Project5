@@ -8,6 +8,7 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -43,6 +44,7 @@ public class ChicagoActivity extends AppCompatActivity {
     Spinner pizzaFlavor;
     TextView crustType;
     TextView pizzaPrice;
+    Button addToOrderButton;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -54,7 +56,8 @@ public class ChicagoActivity extends AppCompatActivity {
         availableToppings = getResources().getStringArray(R.array.toppings);
         recyclerAdapter = new RecyclerAdapter(this, availableToppings, images, () -> {
                 pizza.setToppings(recyclerAdapter.getSelectedToppingsList());
-                System.out.println(pizza.getToppings());
+                getCalculatedPrice();
+                //System.out.println(pizza.getToppings());
         }
         );
         toppingRecycler.setAdapter(recyclerAdapter);
@@ -68,13 +71,16 @@ public class ChicagoActivity extends AppCompatActivity {
         crustType = findViewById(R.id.chicagoCrustType);
         pizzaPrice = findViewById(R.id.chicagoPizzaPrice);
         pizzaImage = findViewById(R.id.chicagoImage);
+        addToOrderButton = findViewById(R.id.chicagoAddToOrderButton);
 
-        pizzaFactory = new ChicagoPizza();
-        pizza = pizzaFactory.createBuildYourOwn();
-        selectedFlavor = Flavor.BUILD_YOUR_OWN;
-        selectedSize = Size.SMALL;
-        setBuildYourOwn();
-        setPizzaStyleImage();
+        resetPizza();
+
+//        pizzaFactory = new ChicagoPizza();
+//        pizza = pizzaFactory.createBuildYourOwn();
+//        selectedFlavor = Flavor.BUILD_YOUR_OWN;
+//        selectedSize = Size.SMALL;
+//        setBuildYourOwn();
+//        setPizzaStyleImage();
     }
 
     @Override
@@ -103,6 +109,7 @@ public class ChicagoActivity extends AppCompatActivity {
 
                     public void onNothingSelected(AdapterView<?> parent) {}
                 });
+        addToOrderButton.setOnClickListener(view -> addToOrder());
     }
 
     private void handleSizeChange(int checkedId) {
@@ -206,6 +213,22 @@ public class ChicagoActivity extends AppCompatActivity {
                 pizzaImage.setImageResource(R.drawable.chicago_style_pizza_deluxe);
                 return;
         }
+    }
+
+    private void addToOrder() {
+        //TODO: add real method call
+        resetPizza();
+    }
+
+    private void resetPizza() {
+        pizzaFactory = new ChicagoPizza();
+        pizza = pizzaFactory.createBuildYourOwn();
+        selectedFlavor = Flavor.BUILD_YOUR_OWN;
+        selectedSize = Size.SMALL;
+        small.toggle();
+        setBuildYourOwn();
+        pizzaFlavor.setSelection(0);
+        setPizzaStyleImage();
     }
 
     /**
