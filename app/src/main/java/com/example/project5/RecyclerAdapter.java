@@ -23,7 +23,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     private ToppingCheckboxClickListener toppingCheckboxClickListener;
     private int[] images;
     private Context context;
-    public boolean hasCheckedBox;
+    private int toppingCount;
+    private boolean hasCheckedBox;
 
     public RecyclerAdapter(Context context, String availableToppings[], int images[]) {
         this.context = context;
@@ -31,7 +32,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         this.selectedToppingsList = new ArrayList<>();
         this.selectedToppings = new SparseBooleanArray();
         this.images = images;
-        hasCheckedBox = false;
+        this.toppingCount = 0;
+        this.hasCheckedBox = true;
     }
 
     public RecyclerAdapter(Context context, String availableToppings[], int images[],
@@ -54,9 +56,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         holder.checkBox.setText(availableToppings[position]);
         holder.image.setImageResource(images[position]);
 
-        if (!hasCheckedBox) holder.checkBox.setChecked(false);
-        for (int i = 0; i < selectedToppings.size(); i++) {
-            selectedToppings.put(i, false);
+        if (!hasCheckedBox) {
+            holder.checkBox.setChecked(false);
+            for (int i = 0; i < selectedToppings.size(); i++) {
+                selectedToppings.put(i, false);
+            }
         }
 
     }
@@ -98,9 +102,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             String toppingName = availableToppings[adapterPosition];
 
             if (!selectedToppings.get(adapterPosition, false)) {
-                checkBox.setChecked(true);
-                selectedToppingsList.add(getTopping(toppingName));
-                selectedToppings.put(adapterPosition, true);
+                if (toppingCount < 7) {
+                    checkBox.setChecked(true);
+                    selectedToppingsList.add(getTopping(toppingName));
+                    selectedToppings.put(adapterPosition, true);
+                    toppingCount++;
+                }
             } else  {
                 checkBox.setChecked(false);
                 selectedToppingsList.remove(getTopping(toppingName));

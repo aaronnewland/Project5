@@ -15,6 +15,7 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.project5.Order;
 import com.example.project5.Pizza;
 import com.example.project5.R;
 import com.example.project5.RecyclerAdapter;
@@ -30,6 +31,7 @@ public class ChicagoActivity extends AppCompatActivity {
     private String availableToppings[];
     private Flavor selectedFlavor;
     private Size selectedSize;
+    private Order order;
 
     RecyclerView toppingRecycler;
     RecyclerAdapter recyclerAdapter;
@@ -72,6 +74,8 @@ public class ChicagoActivity extends AppCompatActivity {
         pizzaPrice = findViewById(R.id.chicagoPizzaPrice);
         pizzaImage = findViewById(R.id.chicagoImage);
         addToOrderButton = findViewById(R.id.chicagoAddToOrderButton);
+
+        order = new Order();
 
         resetPizza();
 
@@ -219,8 +223,9 @@ public class ChicagoActivity extends AppCompatActivity {
     }
 
     private void addToOrder() {
-        //TODO: add real method call
+        order.add(pizza);
         resetPizza();
+        recyclerAdapter.unCheckAll();
     }
 
     private void resetPizza() {
@@ -232,7 +237,6 @@ public class ChicagoActivity extends AppCompatActivity {
         setBuildYourOwn();
         pizzaFlavor.setSelection(0);
         setPizzaStyleImage();
-        recyclerAdapter.unCheckAll();
     }
 
     /**
