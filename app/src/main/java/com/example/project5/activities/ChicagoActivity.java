@@ -28,14 +28,14 @@ import com.example.project5.pizzastyles.ChicagoPizza;
 public class ChicagoActivity extends AppCompatActivity {
     private PizzaFactory pizzaFactory;
     private Pizza pizza;
-    private String availableToppings[];
+    private String[] availableToppings;
     private Flavor selectedFlavor;
     private Size selectedSize;
     private Order order;
 
     RecyclerView toppingRecycler;
     RecyclerAdapter recyclerAdapter;
-    int images[] = {R.drawable.topping_sausage, R.drawable.topping_bbq_chicken,
+    int[] images = {R.drawable.topping_sausage, R.drawable.topping_bbq_chicken,
             R.drawable.topping_beef,R.drawable.topping_ham, R.drawable.topping_pepperoni,
             R.drawable.topping_green_pepper, R.drawable.topping_onion, R.drawable.topping_mushroom,
             R.drawable.topping_pineapple, R.drawable.topping_black_olives,
@@ -78,13 +78,6 @@ public class ChicagoActivity extends AppCompatActivity {
         order = new Order();
 
         resetPizza();
-
-//        pizzaFactory = new ChicagoPizza();
-//        pizza = pizzaFactory.createBuildYourOwn();
-//        selectedFlavor = Flavor.BUILD_YOUR_OWN;
-//        selectedSize = Size.SMALL;
-//        setBuildYourOwn();
-//        setPizzaStyleImage();
     }
 
     @Override
