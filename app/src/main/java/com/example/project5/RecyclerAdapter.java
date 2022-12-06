@@ -56,11 +56,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         holder.checkBox.setText(availableToppings[position]);
         holder.image.setImageResource(images[position]);
 
+        System.out.println(hasCheckedBox);
+
         if (!hasCheckedBox) {
             holder.checkBox.setChecked(false);
             for (int i = 0; i < selectedToppings.size(); i++) {
                 selectedToppings.put(i, false);
             }
+            hasCheckedBox = true;
         }
 
     }
