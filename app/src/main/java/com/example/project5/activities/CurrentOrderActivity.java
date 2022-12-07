@@ -13,7 +13,7 @@ import com.example.project5.R;
 
 public class CurrentOrderActivity extends AppCompatActivity {
 
-    private Order order;
+    public static Order order;
 
     TextView orderNumber;
     TextView subtotal;
@@ -39,8 +39,7 @@ public class CurrentOrderActivity extends AppCompatActivity {
         clearOrderButton = findViewById(R.id.clearOrderButton);
         placeOrderButton = findViewById(R.id.placeOrderButton);
 
-        Intent intent = getIntent();
-        order = (Order) intent.getSerializableExtra("ORDER");
+        System.out.println("----ORDER IN CURRENT ORDER---- " + order);
     }
 
     @Override

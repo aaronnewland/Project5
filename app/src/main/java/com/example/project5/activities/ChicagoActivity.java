@@ -31,7 +31,6 @@ public class ChicagoActivity extends AppCompatActivity {
     private String[] availableToppings;
     private Flavor selectedFlavor;
     private Size selectedSize;
-    private Order order;
 
     RecyclerView toppingRecycler;
     RecyclerAdapter recyclerAdapter;
@@ -74,8 +73,6 @@ public class ChicagoActivity extends AppCompatActivity {
         pizzaPrice = findViewById(R.id.chicagoPizzaPrice);
         pizzaImage = findViewById(R.id.chicagoImage);
         addToOrderButton = findViewById(R.id.chicagoAddToOrderButton);
-
-        order = new Order();
 
         resetPizza();
     }
@@ -216,7 +213,12 @@ public class ChicagoActivity extends AppCompatActivity {
     }
 
     private void addToOrder() {
-        order.add(pizza);
+        //TODO: pizza is being added, but toppings are not being added to custom pizzas
+        if (CurrentOrderActivity.order == null) {
+            CurrentOrderActivity.order = new Order();
+        }
+        CurrentOrderActivity.order.add(pizza);
+        System.out.println("----ORDER IN CHICAGO---- " + CurrentOrderActivity.order);
         resetPizza();
         recyclerAdapter.unCheckAll();
     }
