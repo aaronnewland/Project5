@@ -103,7 +103,13 @@ public class ChicagoActivity extends AppCompatActivity {
 
                     public void onNothingSelected(AdapterView<?> parent) {}
                 });
-        addToOrderButton.setOnClickListener(view -> addToOrder());
+        addToOrderButton.setOnClickListener(view -> {
+            try {
+                addToOrder();
+            } catch (CloneNotSupportedException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     private void handleSizeChange(int checkedId) {
@@ -212,12 +218,9 @@ public class ChicagoActivity extends AppCompatActivity {
         }
     }
 
-    private void addToOrder() {
-        //TODO: pizza is being added, but toppings are not being added to custom pizzas
+    private void addToOrder() throws CloneNotSupportedException {
         if (CurrentOrderActivity.order == null) CurrentOrderActivity.order = new Order();
-        CurrentOrderActivity.order.add(pizza);
-        //TODO: remove wehen done debugging
-        System.out.println("----ORDER IN CHICAGO---- " + CurrentOrderActivity.order);
+        CurrentOrderActivity.order.add(clonedPizza());
         resetPizza();
         recyclerAdapter.unCheckAll();
     }
@@ -238,5 +241,30 @@ public class ChicagoActivity extends AppCompatActivity {
      */
     private void getCalculatedPrice() {
         pizzaPrice.setText(String.format("%,.2f", pizza.price()));
+    }
+
+    private Pizza clonedPizza() {
+        Pizza clonedPizza = null;
+
+        switch(selectedFlavor) {
+            case BUILD_YOUR_OWN:
+                clonedPizza = pizzaFactory.createBuildYourOwn();
+                clonedPizza.getToppings().addAll(pizza.getToppings());
+                break;
+            case DELUXE:
+                clonedPizza = pizzaFactory.createDeluxe();
+                break;
+            case BBQ_CHICKEN:
+                clonedPizza = pizzaFactory.createBBQChicken();
+                break;
+            case MEATZZA:
+                clonedPizza = pizzaFactory.createMeatzza();
+                break;
+        }
+
+        clonedPizza.setCrust(pizza.getCrust());
+        clonedPizza.setSize(pizza.getSize());
+
+        return clonedPizza;
     }
 }

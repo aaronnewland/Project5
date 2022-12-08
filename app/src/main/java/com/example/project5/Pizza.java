@@ -12,7 +12,7 @@ import java.util.List;
  * Holds abstract data and methods for a Pizza.
  * @author Aaron Newland, Dylan Pina
  */
-public abstract class Pizza implements Customizable {
+public abstract class Pizza implements Customizable, Cloneable {
     private List<Topping> toppings;
     private Crust crust;
     private Size size;
@@ -72,4 +72,6 @@ public abstract class Pizza implements Customizable {
     public void setSize(Size size) {
         this.size = size;
     }
+
+    public Object clone() throws CloneNotSupportedException { return super.clone(); }
 }

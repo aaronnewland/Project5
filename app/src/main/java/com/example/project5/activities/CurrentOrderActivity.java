@@ -55,7 +55,7 @@ public class CurrentOrderActivity extends AppCompatActivity {
                     R.layout.list_view_layout,
                     R.id.pizzaInOrderList, order.getOrder());
             orderList.setAdapter(adapter);
-
+            System.out.println(order.getOrder());
             orderNumber.setText(String.valueOf(order.getOrderNumber()));
             updatePrice();
         } else {
