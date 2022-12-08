@@ -25,6 +25,8 @@
         android:layout_marginStart="120dp"
         android:layout_marginTop="32dp"
         android:text="@string/orderNumber"
+        android:textStyle="bold"
+        android:textSize="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/currentOrderHeader" />
 
@@ -35,6 +37,8 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
         android:text="@string/temp"
+        android:textStyle="bold"
+        android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/orderNumberHeader"
@@ -57,6 +61,8 @@
         android:layout_marginStart="84dp"
         android:layout_marginTop="16dp"
         android:text="@string/subtotal"
+        android:textStyle="bold"
+        android:textSize="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/currentOrderList" />
 
@@ -66,6 +72,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="@string/temp"
+        android:textStyle="bold"
+        android:textSize="16dp"
         app:layout_constraintStart_toEndOf="@+id/subtotalHeader"
         app:layout_constraintTop_toBottomOf="@+id/currentOrderList" />
 
@@ -76,6 +84,8 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="@string/salesTax"
+        android:textStyle="bold"
+        android:textSize="16dp"
         app:layout_constraintStart_toEndOf="@+id/subtotal"
         app:layout_constraintTop_toBottomOf="@+id/currentOrderList" />
 
@@ -85,6 +95,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="@string/temp"
+        android:textStyle="bold"
+        android:textSize="16dp"
         app:layout_constraintStart_toEndOf="@+id/salesTaxHeader"
         app:layout_constraintTop_toBottomOf="@+id/currentOrderList" />
 
@@ -94,6 +106,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="144dp"
         android:text="@string/orderTotal"
+        android:textStyle="bold"
+        android:textSize="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/subtotal" />
 
@@ -102,6 +116,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/temp"
+        android:textStyle="bold"
+        android:textSize="16dp"
         app:layout_constraintStart_toEndOf="@+id/orderTotalHeader"
         app:layout_constraintTop_toBottomOf="@+id/salesTaxHeader" />
 

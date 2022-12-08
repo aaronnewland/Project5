@@ -43,15 +43,29 @@ public class CurrentOrderActivity extends AppCompatActivity {
         clearOrderButton = findViewById(R.id.clearOrderButton);
         placeOrderButton = findViewById(R.id.placeOrderButton);
 
-        ArrayAdapter<Pizza> adapter = new ArrayAdapter<>(
-                this,
-                R.layout.list_view_layout,
-                R.id.pizzaInOrderList, order.getOrder());
-        orderList.setAdapter(adapter);
+        if (order != null) {
+            ArrayAdapter<Pizza> adapter = new ArrayAdapter<>(
+                    this,
+                    R.layout.list_view_layout,
+                    R.id.pizzaInOrderList, order.getOrder());
+            orderList.setAdapter(adapter);
+
+            
+            orderNumber.setText(String.valueOf(order.getOrderNumber()));
+            subtotal.setText(String.format("%,.2f", order.getSubtotal()));
+            salesTax.setText(String.format("%,.2f", order.getSalesTax()));
+            total.setText(String.format("%,.2f", order.getOrderTotal()));
+        } else {
+            orderNumber.setText("0");
+            subtotal.setText("0");
+            salesTax.setText("0");
+            total.setText("0");
+        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
     }
+
 }
