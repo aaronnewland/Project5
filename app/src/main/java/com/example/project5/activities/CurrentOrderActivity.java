@@ -55,9 +55,10 @@ public class CurrentOrderActivity extends AppCompatActivity {
                     R.id.pizzaInOrderList, order.getOrder());
             orderList.setAdapter(adapter);
 
+            orderNumber.setText(String.valueOf(order.getOrderNumber()));
             updatePrice();
         } else {
-            orderNumber.setText("0");
+            orderNumber.setText("");
             subtotal.setText("0");
             salesTax.setText("0");
             total.setText("0");
@@ -76,10 +77,10 @@ public class CurrentOrderActivity extends AppCompatActivity {
         });
 
         removePizzaButton.setOnClickListener(view -> removePizza());
+        clearOrderButton.setOnClickListener(view -> clearOrder());
     }
 
     private void updatePrice() {
-        orderNumber.setText(String.valueOf(order.getOrderNumber()));
         subtotal.setText(String.format("%,.2f", order.getSubtotal()));
         salesTax.setText(String.format("%,.2f", order.getSalesTax()));
         total.setText(String.format("%,.2f", order.getOrderTotal()));
@@ -89,6 +90,13 @@ public class CurrentOrderActivity extends AppCompatActivity {
         if (pizza == null) return;
         order.remove(pizza);
         adapter.notifyDataSetChanged();
+        updatePrice();
+    }
+
+    private void clearOrder() {
+        order = new Order();
+        orderNumber.setText("");
+        adapter.clear();
         updatePrice();
     }
 
