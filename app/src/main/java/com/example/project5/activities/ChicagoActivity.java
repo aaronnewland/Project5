@@ -243,6 +243,9 @@ public class ChicagoActivity extends AppCompatActivity {
         pizzaPrice.setText(String.format("%,.2f", pizza.price()));
     }
 
+    /**
+     * @return Deep copy of pizza object
+     */
     private Pizza clonedPizza() {
         Pizza clonedPizza = null;
 

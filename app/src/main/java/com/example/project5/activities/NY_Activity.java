@@ -215,12 +215,8 @@ public class NY_Activity extends AppCompatActivity {
     }
 
     private void addToOrder() {
-        //TODO: pizza is being added, but toppings are not being added to custom pizzas
-        if (CurrentOrderActivity.order == null) {
-            CurrentOrderActivity.order = new Order();
-        }
-        CurrentOrderActivity.order.add(pizza);
-        System.out.println("----ORDER IN NY---- " + CurrentOrderActivity.order);
+        if (CurrentOrderActivity.order == null) CurrentOrderActivity.order = new Order();
+        CurrentOrderActivity.order.add(clonedPizza());
         resetPizza();
         recyclerAdapter.unCheckAll();
     }
@@ -241,5 +237,33 @@ public class NY_Activity extends AppCompatActivity {
      */
     private void getCalculatedPrice() {
         pizzaPrice.setText(String.format("%,.2f", pizza.price()));
+    }
+
+    /**
+     * @return Deep copy of pizza object
+     */
+    private Pizza clonedPizza() {
+        Pizza clonedPizza = null;
+
+        switch(selectedFlavor) {
+            case BUILD_YOUR_OWN:
+                clonedPizza = pizzaFactory.createBuildYourOwn();
+                clonedPizza.getToppings().addAll(pizza.getToppings());
+                break;
+            case DELUXE:
+                clonedPizza = pizzaFactory.createDeluxe();
+                break;
+            case BBQ_CHICKEN:
+                clonedPizza = pizzaFactory.createBBQChicken();
+                break;
+            case MEATZZA:
+                clonedPizza = pizzaFactory.createMeatzza();
+                break;
+        }
+
+        clonedPizza.setCrust(pizza.getCrust());
+        clonedPizza.setSize(pizza.getSize());
+
+        return clonedPizza;
     }
 }
