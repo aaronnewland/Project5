@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.example.project5.Order;
 import com.example.project5.Pizza;
 import com.example.project5.R;
+import com.example.project5.StoreOrder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,9 +60,9 @@ public class CurrentOrderActivity extends AppCompatActivity {
             updatePrice();
         } else {
             orderNumber.setText("");
-            subtotal.setText("0");
-            salesTax.setText("0");
-            total.setText("0");
+            subtotal.setText("0.00");
+            salesTax.setText("0.00");
+            total.setText("0.00");
         }
     }
 
@@ -69,15 +70,12 @@ public class CurrentOrderActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        orderList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                pizza = (Pizza) orderList.getItemAtPosition(i);
-            }
-        });
+        orderList.setOnItemClickListener(
+                (adapterView, view, i, l) -> pizza = (Pizza) orderList.getItemAtPosition(i));
 
         removePizzaButton.setOnClickListener(view -> removePizza());
         clearOrderButton.setOnClickListener(view -> clearOrder());
+        placeOrderButton.setOnClickListener(view -> placeOrder());
     }
 
     private void updatePrice() {
@@ -94,8 +92,22 @@ public class CurrentOrderActivity extends AppCompatActivity {
     }
 
     private void clearOrder() {
+        if (order == null) return;
         order = new Order();
         orderNumber.setText("");
+        adapter.clear();
+        updatePrice();
+    }
+
+    private void placeOrder() {
+        if (order == null || order.getOrder() == null) return;
+        if (StoreOrdersActivity.storeOrder == null) {
+            StoreOrdersActivity.storeOrder = new StoreOrder();
+        }
+        StoreOrdersActivity.storeOrder.add(order);
+        System.out.println(StoreOrdersActivity.storeOrder);
+        System.out.println(StoreOrdersActivity.storeOrder.getOrders().get(0).getOrder());
+        clearOrder();
         adapter.clear();
         updatePrice();
     }

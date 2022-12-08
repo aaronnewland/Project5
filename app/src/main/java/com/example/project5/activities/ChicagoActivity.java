@@ -214,10 +214,9 @@ public class ChicagoActivity extends AppCompatActivity {
 
     private void addToOrder() {
         //TODO: pizza is being added, but toppings are not being added to custom pizzas
-        if (CurrentOrderActivity.order == null) {
-            CurrentOrderActivity.order = new Order();
-        }
+        if (CurrentOrderActivity.order == null) CurrentOrderActivity.order = new Order();
         CurrentOrderActivity.order.add(pizza);
+        //TODO: remove wehen done debugging
         System.out.println("----ORDER IN CHICAGO---- " + CurrentOrderActivity.order);
         resetPizza();
         recyclerAdapter.unCheckAll();

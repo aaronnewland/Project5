@@ -61,19 +61,4 @@ public class StoreOrder implements Customizable {
         return orderNumbers;
     }
 
-    /**
-     * Exports all StoreOrder order information to a text file.
-     * @throws IOException if PrintWriter fails.
-     */
-    public void export() throws IOException {
-        File file = new File("StoreOrder.txt");
-        PrintWriter pw = new PrintWriter(file);
-        orders.forEach(order -> {
-            pw.println("ORDER: #" + order.getOrderNumber());
-            pw.println(order);
-            pw.println("[SUBTOTAL: $" +  String.format("%.2f", order.getSubtotal()) + " | SALES TAX: $ " +  String.format("%.2f", order.getSalesTax()) +
-                    " | ORDER TOTAL: $" + String.format("%.2f", order.getOrderTotal()) + "]\n");
-        });
-        pw.close();
-    }
 }
