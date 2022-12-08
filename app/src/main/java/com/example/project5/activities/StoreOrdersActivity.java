@@ -48,38 +48,36 @@ public class StoreOrdersActivity extends AppCompatActivity {
 
             listAdapter = new ArrayAdapter<>(
                     this, R.layout.list_view_layout,
-                    R.id.pizzaInOrderList,
-                    storeOrder.getOrders().get(0).getOrder());
-            orderList.setAdapter(listAdapter);
+                    R.id.pizzaInOrderList);
+                    orderList.setAdapter(listAdapter);
 
             updatePrice();
         } else {
             orderTotal.setText("0.00");
         }
 
-        orderNumber.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                Order displayedOrder = storeOrder.getOrderById(Integer.valueOf((Integer) orderNumber.getSelectedItem()));
-                listAdapter.clear();
 
-                listAdapter = new ArrayAdapter<>(
-                        this, R.layout.list_view_layout,
-                        R.id.pizzaInOrderList,
-                        storeOrder.getOrders().get(0).getOrder());
-                orderList.setAdapter(listAdapter);
-
-                listAdapter.addAll(storeOrder.getOrders().get(0).getOrder());
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parentView) {  }
-        });
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+
+
+
+        orderNumber.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                Order displayedOrder = storeOrder.getOrderById(Integer.valueOf((Integer) orderNumber.getSelectedItem()));
+
+                listAdapter.clear();
+                listAdapter.addAll(displayedOrder.getOrder());
+                listAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {  }
+        });
     }
 
     private void updatePrice() {
