@@ -2,14 +2,18 @@ package com.example.project5.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.project5.Order;
+import com.example.project5.Pizza;
 import com.example.project5.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CurrentOrderActivity extends AppCompatActivity {
 
@@ -39,7 +43,11 @@ public class CurrentOrderActivity extends AppCompatActivity {
         clearOrderButton = findViewById(R.id.clearOrderButton);
         placeOrderButton = findViewById(R.id.placeOrderButton);
 
-        System.out.println("----ORDER IN CURRENT ORDER---- " + order);
+        ArrayAdapter<Pizza> adapter = new ArrayAdapter<>(
+                this,
+                R.layout.list_view_layout,
+                R.id.pizzaInOrderList, order.getOrder());
+        orderList.setAdapter(adapter);
     }
 
     @Override
