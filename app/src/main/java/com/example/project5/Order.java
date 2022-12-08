@@ -27,8 +27,8 @@ public class Order implements Customizable {
      * Constructor for pizza order using given list of pizzas.
      * @param order list of pizzas to add to order.
      */
-    public Order(ArrayList<Pizza> order) {
-        this();
+    public Order(int orderNumber, ArrayList<Pizza> order) {
+        this.orderNumber = orderNumber;
         this.order = order;
     }
 

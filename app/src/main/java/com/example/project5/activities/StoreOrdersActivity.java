@@ -3,6 +3,8 @@ package com.example.project5.activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -36,9 +38,6 @@ public class StoreOrdersActivity extends AppCompatActivity {
         orderTotal = findViewById(R.id.storeOrderTotal);
         cancelOrder = findViewById(R.id.cancelOrderButton);
 
-        System.out.println(storeOrder);
-        System.out.println(storeOrder.getOrders().get(0).getOrder());
-
         if (storeOrder != null) {
             spinnerAdapter = new ArrayAdapter<>(
                     this,
@@ -47,17 +46,35 @@ public class StoreOrdersActivity extends AppCompatActivity {
                     storeOrder.getOrderNumbers());
             orderNumber.setAdapter(spinnerAdapter);
 
-//            listAdapter = new ArrayAdapter<>(
-//                    this, R.layout.list_view_layout,
-//                    R.id.pizzaInOrderList,
-//                    storeOrder.getOrders().get(0).getOrder());
-//            orderList.setAdapter(listAdapter);
-
+            listAdapter = new ArrayAdapter<>(
+                    this, R.layout.list_view_layout,
+                    R.id.pizzaInOrderList,
+                    storeOrder.getOrders().get(0).getOrder());
+            orderList.setAdapter(listAdapter);
 
             updatePrice();
         } else {
             orderTotal.setText("0.00");
         }
+
+        orderNumber.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                Order displayedOrder = storeOrder.getOrderById(Integer.valueOf((Integer) orderNumber.getSelectedItem()));
+                listAdapter.clear();
+
+                listAdapter = new ArrayAdapter<>(
+                        this, R.layout.list_view_layout,
+                        R.id.pizzaInOrderList,
+                        storeOrder.getOrders().get(0).getOrder());
+                orderList.setAdapter(listAdapter);
+
+                listAdapter.addAll(storeOrder.getOrders().get(0).getOrder());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {  }
+        });
     }
 
     @Override
@@ -72,7 +89,6 @@ public class StoreOrdersActivity extends AppCompatActivity {
     private void updateOrderNumbers() {
         if (noStoreOrders()) return;
         storeOrder.getOrderNumbers().clear();
-
     }
 
     private boolean noStoreOrders() {

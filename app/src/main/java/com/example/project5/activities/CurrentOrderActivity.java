@@ -101,15 +101,14 @@ public class CurrentOrderActivity extends AppCompatActivity {
 
     private void placeOrder() {
         if (order == null || order.getOrder() == null) return;
-        if (StoreOrdersActivity.storeOrder == null) {
-            StoreOrdersActivity.storeOrder = new StoreOrder();
-        }
-        StoreOrdersActivity.storeOrder.add(order);
-        System.out.println(StoreOrdersActivity.storeOrder);
-        System.out.println(StoreOrdersActivity.storeOrder.getOrders().get(0).getOrder());
+        if (StoreOrdersActivity.storeOrder == null) StoreOrdersActivity.storeOrder = new StoreOrder();
+        StoreOrdersActivity.storeOrder.add(copiedOrder());
         clearOrder();
         adapter.clear();
         updatePrice();
     }
 
+    private Order copiedOrder() {
+        return new Order(order.getOrderNumber(), new ArrayList<>(order.getOrder()));
+    }
 }

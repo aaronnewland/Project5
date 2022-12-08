@@ -61,4 +61,8 @@ public class StoreOrder implements Customizable {
         return orderNumbers;
     }
 
+    public Order getOrderById(int id) {
+        for (Order o : orders) if (o.getOrderNumber() == id) return o;
+        return null;
+    }
 }
