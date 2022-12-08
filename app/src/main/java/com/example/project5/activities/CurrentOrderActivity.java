@@ -3,6 +3,8 @@ package com.example.project5.activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -18,6 +20,7 @@ import java.util.List;
 public class CurrentOrderActivity extends AppCompatActivity {
 
     public static Order order;
+    private Pizza pizza;
 
     TextView orderNumber;
     TextView subtotal;
@@ -27,6 +30,8 @@ public class CurrentOrderActivity extends AppCompatActivity {
     Button removePizzaButton;
     Button clearOrderButton;
     Button placeOrderButton;
+
+    ArrayAdapter<Pizza> adapter;
 
 
     @Override
@@ -44,17 +49,13 @@ public class CurrentOrderActivity extends AppCompatActivity {
         placeOrderButton = findViewById(R.id.placeOrderButton);
 
         if (order != null) {
-            ArrayAdapter<Pizza> adapter = new ArrayAdapter<>(
+            adapter = new ArrayAdapter<>(
                     this,
                     R.layout.list_view_layout,
                     R.id.pizzaInOrderList, order.getOrder());
             orderList.setAdapter(adapter);
 
-            
-            orderNumber.setText(String.valueOf(order.getOrderNumber()));
-            subtotal.setText(String.format("%,.2f", order.getSubtotal()));
-            salesTax.setText(String.format("%,.2f", order.getSalesTax()));
-            total.setText(String.format("%,.2f", order.getOrderTotal()));
+            updatePrice();
         } else {
             orderNumber.setText("0");
             subtotal.setText("0");
@@ -66,6 +67,29 @@ public class CurrentOrderActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
+        orderList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                pizza = (Pizza) orderList.getItemAtPosition(i);
+            }
+        });
+
+        removePizzaButton.setOnClickListener(view -> removePizza());
+    }
+
+    private void updatePrice() {
+        orderNumber.setText(String.valueOf(order.getOrderNumber()));
+        subtotal.setText(String.format("%,.2f", order.getSubtotal()));
+        salesTax.setText(String.format("%,.2f", order.getSalesTax()));
+        total.setText(String.format("%,.2f", order.getOrderTotal()));
+    }
+
+    private void removePizza() {
+        if (pizza == null) return;
+        order.remove(pizza);
+        adapter.notifyDataSetChanged();
+        updatePrice();
     }
 
 }
