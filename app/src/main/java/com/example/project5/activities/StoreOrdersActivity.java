@@ -50,10 +50,9 @@ public class StoreOrdersActivity extends AppCompatActivity {
                     this, R.layout.list_view_layout,
                     R.id.pizzaInOrderList);
                     orderList.setAdapter(listAdapter);
-
             updatePrice();
         } else {
-            orderTotal.setText("0.00");
+            updatePrice();
         }
 
 
@@ -63,33 +62,65 @@ public class StoreOrdersActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-
-
         orderNumber.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                Order displayedOrder = storeOrder.getOrderById(Integer.valueOf((Integer) orderNumber.getSelectedItem()));
+                order = storeOrder.getOrderById(Integer.valueOf((Integer) orderNumber.getSelectedItem()));
 
                 listAdapter.clear();
-                listAdapter.addAll(displayedOrder.getOrder());
+                listAdapter.addAll(order.getOrder());
                 listAdapter.notifyDataSetChanged();
+
+                updatePrice();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {  }
         });
+
+        cancelOrder.setOnClickListener(view -> cancelOrder());
     }
 
     private void updatePrice() {
-        orderTotal.setText(String.format("%,.2f", storeOrder.getOrders().get(0).getOrderTotal()));
+        if (order != null) {
+            orderTotal.setText(String.format("%,.2f",
+                    storeOrder.getOrderById(order.getOrderNumber()).getOrderTotal()));
+        } else {
+            orderTotal.setText("0.00");
+        }
+
     }
 
     private void updateOrderNumbers() {
-        if (noStoreOrders()) return;
+        if (noStoreOrders()) {
+            spinnerAdapter.clear();
+            spinnerAdapter.notifyDataSetChanged();
+            return;
+        }
         storeOrder.getOrderNumbers().clear();
+        storeOrder.getOrders().forEach(order -> storeOrder.getOrderNumbers().add(order.getOrderNumber()));
+        spinnerAdapter.clear();
+        if (!storeOrder.getOrders().isEmpty()) spinnerAdapter.addAll(storeOrder.getOrderNumbers());
+        spinnerAdapter.notifyDataSetChanged();
+
+        if (!storeOrder.getOrders().isEmpty()) orderNumber.setSelection(0);
     }
 
     private boolean noStoreOrders() {
         return storeOrder == null || storeOrder.getOrders().isEmpty();
+    }
+
+    private void cancelOrder() {
+        int displayedOrderIndex = storeOrder.getOrders().indexOf(order);
+        if (displayedOrderIndex == storeOrder.getOrders().size() - 1) displayedOrderIndex -= 1;
+        storeOrder.getOrders().remove(order);
+        if (storeOrder.getOrders().isEmpty()) {
+            listAdapter.clear();
+            listAdapter.notifyDataSetChanged();
+            //return;
+        }
+
+        updateOrderNumbers();
+        updatePrice();
     }
 }
