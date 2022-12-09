@@ -14,6 +14,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.project5.Order;
 import com.example.project5.Pizza;
@@ -24,7 +25,10 @@ import com.example.project5.enums.Flavor;
 import com.example.project5.enums.Size;
 import com.example.project5.interfaces.PizzaFactory;
 import com.example.project5.pizzastyles.NYPizza;
-
+/**
+ * Activity that allows user to add New York style pizza to order.
+ * @author Aaron Newland, Dylan Pina
+ */
 public class NY_Activity extends AppCompatActivity {
 
     private PizzaFactory pizzaFactory;
@@ -48,6 +52,10 @@ public class NY_Activity extends AppCompatActivity {
     TextView pizzaPrice;
     Button addToOrderButton;
 
+    /**
+     * Connects all UI fields to appropriate resources and sets up adapter for recycler view.
+     * @param savedInstanceState saved instance state of application.
+     */
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +68,6 @@ public class NY_Activity extends AppCompatActivity {
         recyclerAdapter = new RecyclerAdapter(this, availableToppings, images, () -> {
             pizza.setToppings(recyclerAdapter.getSelectedToppingsList());
             getCalculatedPrice();
-            System.out.println(pizza.getToppings());
         }
         );
         toppingRecycler.setAdapter(recyclerAdapter);
@@ -79,12 +86,22 @@ public class NY_Activity extends AppCompatActivity {
         resetPizza();
     }
 
+    /**
+     * Contains listeners for UI in the NY activity. General running state of activity.
+     */
     @Override
     protected void onResume() {
         super.onResume();
         sizeGroup.setOnCheckedChangeListener((radioGroup, checkedId) -> handleSizeChange(checkedId));
         pizzaFlavor.setOnItemSelectedListener(
                 new AdapterView.OnItemSelectedListener() {
+                    /**
+                     * Checks ID and sets pizza flavor accordingly.
+                     * @param parent parent adapter view.
+                     * @param view current view.
+                     * @param position item position.
+                     * @param id id to be checked.
+                     */
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                         switch((int) id) {
                             case 0:
@@ -102,12 +119,19 @@ public class NY_Activity extends AppCompatActivity {
                         }
                         setPizzaStyleImage();
                     }
-
+                    /**
+                     * Method for what to handle when nothing is selected.
+                     * @param parent parent adapter view.
+                     */
                     public void onNothingSelected(AdapterView<?> parent) {}
                 });
         addToOrderButton.setOnClickListener(view -> addToOrder());
     }
 
+    /**
+     * Handles when user changes size of pizza.
+     * @param checkedId the ID to find the appropriate size.
+     */
     private void handleSizeChange(int checkedId) {
         switch(checkedId) {
             case R.id.small:
@@ -214,13 +238,20 @@ public class NY_Activity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Adds pizza to current order.
+     */
     private void addToOrder() {
         if (CurrentOrderActivity.order == null) CurrentOrderActivity.order = new Order();
         CurrentOrderActivity.order.add(clonedPizza());
         resetPizza();
         recyclerAdapter.unCheckAll();
+        Toast.makeText(getApplicationContext(), "pizza added to order", Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * Resets all fields for current pizza.
+     */
     private void resetPizza() {
         pizzaFactory = new NYPizza();
         pizza = pizzaFactory.createBuildYourOwn();
@@ -240,6 +271,7 @@ public class NY_Activity extends AppCompatActivity {
     }
 
     /**
+     * Clones the pizza.
      * @return Deep copy of pizza object
      */
     private Pizza clonedPizza() {

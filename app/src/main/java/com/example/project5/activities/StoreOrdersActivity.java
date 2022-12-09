@@ -16,7 +16,10 @@ import com.example.project5.Order;
 import com.example.project5.Pizza;
 import com.example.project5.R;
 import com.example.project5.StoreOrder;
-
+/**
+ * Activity that allows user to manage all orders for store.
+ * @author Aaron Newland, Dylan Pina
+ */
 public class StoreOrdersActivity extends AppCompatActivity {
     public static StoreOrder storeOrder;
     private Order order;
@@ -29,6 +32,11 @@ public class StoreOrdersActivity extends AppCompatActivity {
     ArrayAdapter<Pizza> listAdapter;
     ArrayAdapter<Integer> spinnerAdapter;
 
+    /**
+     * Connects all UI fields to appropriate resources
+     * and sets up adapters for list view and spinner.
+     * @param savedInstanceState saved instance state of application.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,11 +63,21 @@ public class StoreOrdersActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Contains listeners for UI in the store order activity. General running state of activity.
+     */
     @Override
     protected void onResume() {
         super.onResume();
 
         orderNumber.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            /**
+             * Displays order based on order number selected from spinner.
+             * @param parentView parent adapter view.
+             * @param selectedItemView current view.
+             * @param position item position.
+             * @param id id to be checked.
+             */
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 order = storeOrder.getOrderById(Integer.valueOf((Integer) orderNumber.getSelectedItem()));
@@ -71,6 +89,10 @@ public class StoreOrdersActivity extends AppCompatActivity {
                 updatePrice();
             }
 
+            /**
+             * Method for what to handle when nothing is selected.
+             * @param parentView parent adapter view.
+             */
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {  }
         });
@@ -78,6 +100,9 @@ public class StoreOrdersActivity extends AppCompatActivity {
         cancelOrder.setOnClickListener(view -> cancelOrder());
     }
 
+    /**
+     * Updates price field for current order.
+     */
     private void updatePrice() {
         if (!listAdapter.isEmpty()) {
             orderTotal.setText(String.format("%,.2f", order.getOrderTotal()));
@@ -86,6 +111,9 @@ public class StoreOrdersActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Updates order numbers, and maintains order number list.
+     */
     private void updateOrderNumbers() {
         if (noStoreOrders()) {
             spinnerAdapter.clear();
@@ -101,10 +129,17 @@ public class StoreOrdersActivity extends AppCompatActivity {
         if (!storeOrder.getOrders().isEmpty()) orderNumber.setSelection(0);
     }
 
+    /**
+     * Checks if there are any store orders.
+     * @return True if there is at least one order in the store, false otherwise.
+     */
     private boolean noStoreOrders() {
         return storeOrder == null || storeOrder.getOrders().isEmpty();
     }
 
+    /**
+     * Cancels the currently selected order.
+     */
     private void cancelOrder() {
         new AlertDialog.Builder(this)
                 .setTitle("WARNING")

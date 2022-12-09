@@ -73,5 +73,10 @@ public abstract class Pizza implements Customizable, Cloneable {
         this.size = size;
     }
 
+    /**
+     * Clones the pizza object.
+     * @return the cloned pizza object.
+     * @throws CloneNotSupportedException if clone is not supported
+     */
     public Object clone() throws CloneNotSupportedException { return super.clone(); }
 }

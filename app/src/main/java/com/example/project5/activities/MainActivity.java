@@ -7,7 +7,10 @@ import android.os.Bundle;
 import android.widget.ImageButton;
 
 import com.example.project5.R;
-
+/**
+ * Main activity that launches on app launch.
+ * @author Aaron Newland, Dylan Pina
+ */
 public class MainActivity extends AppCompatActivity {
 
     private ImageButton chicagoButton;
@@ -15,7 +18,10 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton currentOrderButton;
     private ImageButton storeOrdersButton;
 
-    //Instantiate class-scope variables in onCreate
+    /**
+     * Connects all buttons in the main activity.
+     * @param savedInstanceState saved instance state of application.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,7 +32,9 @@ public class MainActivity extends AppCompatActivity {
         storeOrdersButton = findViewById(R.id.storeOrdersButton);
     }
 
-    //State of user interaction
+    /**
+     * Contains listeners for buttons in the main activity. General running state of activity.
+     */
     @Override
     protected void onResume() {
         super.onResume();

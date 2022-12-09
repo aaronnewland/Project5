@@ -61,6 +61,11 @@ public class StoreOrder implements Customizable {
         return orderNumbers;
     }
 
+    /**
+     * Retrieves order by the order number.
+     * @param id order number to be found.
+     * @return order if found, null otherwise.
+     */
     public Order getOrderById(int id) {
         for (Order o : orders) if (o.getOrderNumber() == id) return o;
         return null;

@@ -3,10 +3,7 @@ package com.example.project5.activities;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -18,8 +15,10 @@ import com.example.project5.R;
 import com.example.project5.StoreOrder;
 
 import java.util.ArrayList;
-import java.util.List;
-
+/**
+ * Activity that allows user to manage and place order.
+ * @author Aaron Newland, Dylan Pina
+ */
 public class CurrentOrderActivity extends AppCompatActivity {
 
     public static Order order;
@@ -36,6 +35,10 @@ public class CurrentOrderActivity extends AppCompatActivity {
 
     ArrayAdapter<Pizza> adapter;
 
+    /**
+     * Connects all UI fields to appropriate resources and sets up adapter for list view.
+     * @param savedInstanceState saved instance state of application.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +59,6 @@ public class CurrentOrderActivity extends AppCompatActivity {
                     R.layout.list_view_layout,
                     R.id.pizzaInOrderList, order.getOrder());
             orderList.setAdapter(adapter);
-            System.out.println(order.getOrder());
             orderNumber.setText(String.valueOf(order.getOrderNumber()));
             updatePrice();
         } else {
@@ -67,6 +69,9 @@ public class CurrentOrderActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Contains listeners for UI in the current order activity. General running state of activity.
+     */
     @Override
     protected void onResume() {
         super.onResume();
@@ -79,12 +84,18 @@ public class CurrentOrderActivity extends AppCompatActivity {
         placeOrderButton.setOnClickListener(view -> placeOrder());
     }
 
+    /**
+     * Updates all price fields for current order.
+     */
     private void updatePrice() {
         subtotal.setText(String.format("%,.2f", order.getSubtotal()));
         salesTax.setText(String.format("%,.2f", order.getSalesTax()));
         total.setText(String.format("%,.2f", order.getOrderTotal()));
     }
 
+    /**
+     * Removes pizza from current order.
+     */
     private void removePizza() {
         if (order.getOrder().isEmpty() || pizza == null) return;
         new AlertDialog.Builder(this)
@@ -102,6 +113,9 @@ public class CurrentOrderActivity extends AppCompatActivity {
                 .show();
     }
 
+    /**
+     * Clears order on button click for Clear Order Button.
+     */
     private void clearOrderButtonClick() {
         if (order.getOrder().isEmpty()) return;
         new AlertDialog.Builder(this)
@@ -117,6 +131,9 @@ public class CurrentOrderActivity extends AppCompatActivity {
                 .show();
     }
 
+    /**
+     * Clears order when clearing or placing order.
+     */
     private void clearOrder() {
         order = new Order();
         orderNumber.setText("");
@@ -124,6 +141,9 @@ public class CurrentOrderActivity extends AppCompatActivity {
         updatePrice();
     }
 
+    /**
+     * Places order with store.
+     */
     private void placeOrder() {
         if (order == null || order.getOrder().isEmpty()) return;
         if (StoreOrdersActivity.storeOrder == null) StoreOrdersActivity.storeOrder = new StoreOrder();
@@ -133,6 +153,10 @@ public class CurrentOrderActivity extends AppCompatActivity {
         updatePrice();
     }
 
+    /**
+     * Copies current order.
+     * @return Order that has been copied.
+     */
     private Order copiedOrder() {
         return new Order(order.getOrderNumber(), new ArrayList<>(order.getOrder()));
     }

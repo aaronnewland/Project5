@@ -1,9 +1,7 @@
 package com.example.project5.flavors;
 
 import com.example.project5.Pizza;
-import com.example.project5.enums.Crust;
 import com.example.project5.enums.PizzaStyle;
-import com.example.project5.enums.Size;
 import com.example.project5.enums.Topping;
 
 import java.util.ArrayList;
