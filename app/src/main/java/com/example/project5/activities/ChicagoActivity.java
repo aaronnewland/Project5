@@ -1,10 +1,12 @@
 package com.example.project5.activities;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -32,6 +34,7 @@ public class ChicagoActivity extends AppCompatActivity {
     private Flavor selectedFlavor;
     private Size selectedSize;
 
+    AlertDialog.Builder alertDialog;
     RecyclerView toppingRecycler;
     RecyclerAdapter recyclerAdapter;
     int[] images = {R.drawable.topping_sausage, R.drawable.topping_bbq_chicken,
@@ -53,6 +56,7 @@ public class ChicagoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_chicago);
+        alertDialog = new AlertDialog.Builder(this);
         toppingRecycler = findViewById(R.id.chicagoToppingsRecycler);
         availableToppings = getResources().getStringArray(R.array.toppings);
         recyclerAdapter = new RecyclerAdapter(this, availableToppings, images, () -> {

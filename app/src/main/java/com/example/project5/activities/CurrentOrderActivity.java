@@ -1,7 +1,9 @@
 package com.example.project5.activities;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -33,7 +35,6 @@ public class CurrentOrderActivity extends AppCompatActivity {
     Button placeOrderButton;
 
     ArrayAdapter<Pizza> adapter;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +75,7 @@ public class CurrentOrderActivity extends AppCompatActivity {
                 (adapterView, view, i, l) -> pizza = (Pizza) orderList.getItemAtPosition(i));
 
         removePizzaButton.setOnClickListener(view -> removePizza());
-        clearOrderButton.setOnClickListener(view -> clearOrder());
+        clearOrderButton.setOnClickListener(view -> clearOrderButtonClick());
         placeOrderButton.setOnClickListener(view -> placeOrder());
     }
 
@@ -85,14 +86,38 @@ public class CurrentOrderActivity extends AppCompatActivity {
     }
 
     private void removePizza() {
-        if (pizza == null) return;
-        order.remove(pizza);
-        adapter.notifyDataSetChanged();
-        updatePrice();
+        if (order.getOrder().isEmpty() || pizza == null) return;
+        new AlertDialog.Builder(this)
+                .setTitle("WARNING")
+                .setMessage("Are you sure you want to remove this pizza?")
+
+                .setPositiveButton(android.R.string.yes, (dialog, which) -> {
+                    order.remove(pizza);
+                    adapter.notifyDataSetChanged();
+                    updatePrice();
+                })
+
+                .setNegativeButton(android.R.string.no, null)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
+    }
+
+    private void clearOrderButtonClick() {
+        if (order.getOrder().isEmpty()) return;
+        new AlertDialog.Builder(this)
+                .setTitle("WARNING")
+                .setMessage("Are you sure you want to clear your order?")
+
+                .setPositiveButton(android.R.string.yes, (dialog, which) -> {
+                    clearOrder();
+                })
+
+                .setNegativeButton(android.R.string.no, null)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
     }
 
     private void clearOrder() {
-        if (order == null) return;
         order = new Order();
         orderNumber.setText("");
         adapter.clear();

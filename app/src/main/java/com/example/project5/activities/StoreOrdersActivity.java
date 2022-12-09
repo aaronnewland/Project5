@@ -1,5 +1,6 @@
 package com.example.project5.activities;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -51,11 +52,7 @@ public class StoreOrdersActivity extends AppCompatActivity {
                     R.id.pizzaInOrderList);
                     orderList.setAdapter(listAdapter);
             updatePrice();
-        } else {
-            updatePrice();
         }
-
-
     }
 
     @Override
@@ -82,13 +79,11 @@ public class StoreOrdersActivity extends AppCompatActivity {
     }
 
     private void updatePrice() {
-        if (order != null) {
-            orderTotal.setText(String.format("%,.2f",
-                    storeOrder.getOrderById(order.getOrderNumber()).getOrderTotal()));
+        if (!listAdapter.isEmpty()) {
+            orderTotal.setText(String.format("%,.2f", order.getOrderTotal()));
         } else {
             orderTotal.setText("0.00");
         }
-
     }
 
     private void updateOrderNumbers() {
@@ -111,16 +106,26 @@ public class StoreOrdersActivity extends AppCompatActivity {
     }
 
     private void cancelOrder() {
-        int displayedOrderIndex = storeOrder.getOrders().indexOf(order);
-        if (displayedOrderIndex == storeOrder.getOrders().size() - 1) displayedOrderIndex -= 1;
-        storeOrder.getOrders().remove(order);
-        if (storeOrder.getOrders().isEmpty()) {
-            listAdapter.clear();
-            listAdapter.notifyDataSetChanged();
-            //return;
-        }
+        new AlertDialog.Builder(this)
+                .setTitle("WARNING")
+                .setMessage("Are you sure you want to cancel this order?")
 
-        updateOrderNumbers();
-        updatePrice();
+                .setPositiveButton(R.string.dialogYes, (dialog, which) -> {
+                    int displayedOrderIndex = storeOrder.getOrders().indexOf(order);
+                    if (displayedOrderIndex == storeOrder.getOrders().size() - 1) displayedOrderIndex -= 1;
+                    storeOrder.getOrders().remove(order);
+
+                    if (storeOrder.getOrders().isEmpty()) {
+                        listAdapter.clear();
+                        listAdapter.notifyDataSetChanged();
+                    }
+
+                    updateOrderNumbers();
+                    updatePrice();
+                })
+
+                .setNegativeButton(R.string.dialogNo, null)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
     }
 }

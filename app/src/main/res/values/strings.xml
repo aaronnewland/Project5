@@ -88,4 +88,8 @@
 
     <string name="cancelOrder" >Cancel Order</string>
 
+    <string name="dialogYes" >Yes</string>
+
+    <string name="dialogNo" >No</string>
+
 </resources>
