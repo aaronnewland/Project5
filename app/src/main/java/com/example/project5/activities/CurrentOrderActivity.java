@@ -125,7 +125,7 @@ public class CurrentOrderActivity extends AppCompatActivity {
     }
 
     private void placeOrder() {
-        if (order == null || order.getOrder() == null) return;
+        if (order == null || order.getOrder().isEmpty()) return;
         if (StoreOrdersActivity.storeOrder == null) StoreOrdersActivity.storeOrder = new StoreOrder();
         StoreOrdersActivity.storeOrder.add(copiedOrder());
         clearOrder();

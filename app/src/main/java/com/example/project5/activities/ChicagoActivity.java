@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,6 +15,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.project5.Order;
 import com.example.project5.Pizza;
@@ -62,7 +62,6 @@ public class ChicagoActivity extends AppCompatActivity {
         recyclerAdapter = new RecyclerAdapter(this, availableToppings, images, () -> {
                 pizza.setToppings(recyclerAdapter.getSelectedToppingsList());
                 getCalculatedPrice();
-                System.out.println(pizza.getToppings());
         }
         );
         toppingRecycler.setAdapter(recyclerAdapter);
@@ -227,6 +226,7 @@ public class ChicagoActivity extends AppCompatActivity {
         CurrentOrderActivity.order.add(clonedPizza());
         resetPizza();
         recyclerAdapter.unCheckAll();
+        Toast.makeText(getApplicationContext(), "pizza added to order", Toast.LENGTH_SHORT).show();
     }
 
     private void resetPizza() {
